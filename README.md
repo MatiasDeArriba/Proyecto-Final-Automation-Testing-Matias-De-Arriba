@@ -1,201 +1,41 @@
-# 🤖 Framework de Automatización de Pruebas — Matias De Arriba
+# 🤖 Proyecto de Automatizacion QA - Matias De Arriba
+Proyecto final de automatización - Actualizado el 22 de junio de 2026.
 
-Framework completo de testing automatizado desarrollado como Trabajo Final Integrador. Combina pruebas de UI con Selenium WebDriver, pruebas de API con Requests, patrón de diseño Page Object Model, y generación de reportes HTML con capturas de pantalla automáticas.
+## Descripcion
 
----
+Proyecto de automatizacion de pruebas realizado con Python, Selenium WebDriver y Pytest.
 
-## 📋 Tabla de Contenidos
+El objetivo del proyecto es automatizar distintas pruebas funcionales de una aplicacion web.
 
-- [Propósito del Proyecto](#propósito-del-proyecto)
-- [Tecnologías Utilizadas](#tecnologías-utilizadas)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Instalación](#instalación)
-- [Ejecución de Pruebas](#ejecución-de-pruebas)
-- [Reportes](#reportes)
-- [Casos de Prueba](#casos-de-prueba)
+## Tecnologias usadas
 
----
+* Lenguaje: Python
+* Automatización UI: Selenium WebDriver
+* Framework de Testing: Pytest
+* Pruebas de API: Requests
+* Reportes: Pytest-html (con captura automática de screenshots ante fallos)
+* Control de versiones: Git y GitHub
 
-## 🎯 Propósito del Proyecto
+## Instalacion
 
-Este proyecto implementa un framework de automatización de pruebas end-to-end que cubre:
+`git clone https://github.com/MatiasDeArriba/proyecto-final-automation-testing-matias-de-arriba.git`
 
-- **Pruebas de UI**: automatización de flujos completos sobre [SauceDemo](https://www.saucedemo.com/) usando Selenium WebDriver con patrón POM
-- **Pruebas de API**: validación de endpoints sobre [ReqRes](https://reqres.in/) usando la biblioteca Requests
-- **Reportes visuales**: generación automática de reportes HTML con estado de cada test y capturas de pantalla en caso de fallo
-- **Datos externos**: parametrización de tests mediante archivos CSV y JSON
+## Instalacion dependencias
 
----
+`pip install -r requirements.txt`
 
-## 🛠️ Tecnologías Utilizadas
+## Ejecucion de pruebas
 
-| Tecnología | Versión | Uso |
-|---|---|---|
-| Python | 3.x | Lenguaje principal |
-| Pytest | Latest | Framework de testing |
-| Selenium WebDriver | 4.x | Automatización de UI |
-| Requests | Latest | Pruebas de API |
-| pytest-html | Latest | Reportes HTML |
-| Git / GitHub | — | Control de versiones |
+Para ejecutar la suite completa de pruebas y generar el reporte, utilizar el siguiente comando:
 
----
+`pytest --html=reports/report.html`
 
-## 📁 Estructura del Proyecto
+## Funcionamiento de las pruebas
 
-```
-Proyecto-Final-Automation-Testing-Matias-De-Arriba/
-│
-├── page/                   # Page Objects (patrón POM)
-│   ├── login_page.py       # Página de login
-│   ├── inventory_page.py   # Página de productos
-│   └── cart_page.py        # Página del carrito
-│
-├── tests/                  # Casos de prueba
-│   ├── test_ui.py          # Tests de interfaz (Selenium)
-│   └── test_api.py         # Tests de API (Requests)
-│
-├── utils/                  # Utilidades reutilizables
-│   ├── data_reader.py      # Lectura de datos externos (CSV/JSON)
-│   └── logger.py           # Configuración de logging
-│
-├── data/                   # Datos de prueba
-│   ├── users.csv           # Credenciales de usuario
-│   └── test_data.json      # Datos adicionales para tests
-│
-├── logs/                   # Archivos de log generados
-│
-├── reports/                # Reportes e imágenes generados
-│   └── screenshots/        # Capturas automáticas en fallos
-│
-├── conftest.py             # Fixtures y hooks globales de Pytest
-├── pytest.ini              # Configuración de Pytest
-└── README.md               # Este archivo
-```
+**Test Login:** Validación de acceso exitoso y manejo de errores (escenarios negativos) mediante parametrización con archivos CSV.
 
----
+**Test Inventory:** Verificación de la carga correcta de productos y navegación en la página de inventario.
 
-## ⚙️ Instalación
+**Test Cart:** Pruebas funcionales del carrito de compras que incluyen la adición y eliminación de productos, verificación de persistencia de ítems y parametrización mediante archivos JSON.
 
-### Requisitos previos
-
-- Python 3.8 o superior
-- Google Chrome instalado
-- ChromeDriver compatible con tu versión de Chrome (o usar `webdriver-manager`)
-
-### Pasos
-
-**1. Clonar el repositorio**
-```bash
-git clone https://github.com/MatiasDeArriba/Proyecto-Final-Automation-Testing-Matias-De-Arriba.git
-cd Proyecto-Final-Automation-Testing-Matias-De-Arriba
-```
-
-**2. Crear y activar entorno virtual** (recomendado)
-```bash
-python -m venv venv
-
-# Windows
-venv\Scripts\activate
-
-# Linux / macOS
-source venv/bin/activate
-```
-
-**3. Instalar dependencias**
-```bash
-pip install pytest selenium requests pytest-html
-```
-
----
-
-## ▶️ Ejecución de Pruebas
-
-### Ejecutar todos los tests
-```bash
-pytest
-```
-Esto genera automáticamente el reporte en `report.html` según la configuración de `pytest.ini`.
-
-### Ejecutar solo tests de UI
-```bash
-pytest tests/test_ui.py -v
-```
-
-### Ejecutar solo tests de API
-```bash
-pytest tests/test_api.py -v
-```
-
-### Ejecutar un test específico
-```bash
-pytest tests/test_ui.py::TestLogin::test_login_valido -v
-```
-
----
-
-## 📊 Reportes
-
-### Reporte HTML
-
-Al ejecutar `pytest`, se genera automáticamente el archivo `report.html` en la raíz del proyecto.
-
-Para abrirlo:
-```bash
-# Windows
-start report.html
-
-# macOS
-open report.html
-
-# Linux
-xdg-open report.html
-```
-
-El reporte muestra:
-- Listado de todos los tests ejecutados
-- Estado de cada test (PASSED / FAILED)
-- Duración de ejecución
-- Capturas de pantalla embebidas para los tests fallidos
-
-### Capturas de Pantalla
-
-Cuando un test de UI falla, el framework captura automáticamente una screenshot y la guarda en:
-
-```
-reports/screenshots/<nombre_del_test>.png
-```
-
-También queda embebida en el reporte HTML para consulta inmediata.
-
-### Logs
-
-Durante la ejecución se generan logs detallados en la carpeta `logs/`, útiles para depuración.
-
----
-
-## 🧪 Casos de Prueba
-
-### UI — SauceDemo (Selenium)
-
-| # | Caso de Prueba | Tipo |
-|---|---|---|
-| 1 | Login con credenciales válidas | Positivo |
-| 2 | Login con credenciales inválidas | Negativo |
-| 3 | Navegación al inventario de productos | Positivo |
-| 4 | Agregar producto al carrito | Positivo |
-| 5 | Completar flujo de checkout | Positivo |
-
-### API — ReqRes (Requests)
-
-| # | Endpoint | Método | Validación |
-|---|---|---|---|
-| 1 | `/api/users` | GET | Status 200 + estructura JSON |
-| 2 | `/api/users` | POST | Status 201 + datos creados |
-| 3 | `/api/users/2` | DELETE | Status 204 |
-
----
-
-## 👤 Autor
-
-**Matias De Arriba**  
-Trabajo Final Integrador — Curso de QA Automation
+**Test API:** Suite de pruebas para endpoints públicos, validando métodos HTTP (GET, POST, DELETE) y la integridad de los datos en las respuestas JSON.
