@@ -4,13 +4,19 @@ from page.login_page import LoginPage
 from utils.data_reader import read_users_csv
 import pathlib
 import pytest_html
+import os  # 
 
 @pytest.fixture
 def driver():
     options = webdriver.ChromeOptions()
     options.add_argument("--incognito")
 
-    driver = webdriver.Chrome(options= options)
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        options.add_argument("--headless=new")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+
+    driver = webdriver.Chrome(options=options)
 
     yield driver
 
